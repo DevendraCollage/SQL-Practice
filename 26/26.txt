@@ -1,0 +1,177 @@
+1. Create Database with name: EMPLOYEE_INFO and Create Document employee in the Database
+-> Insert the record in the Document
+db.employee.insertMany([{EID:1,ENAME:"Nick",GENDER:"Male",JOININGDATE:"1-1-13",SALARY:4000,CITY:"London"},
+                        {EID:2,ENAME:"Julian",GENDER:"Female",JOININGDATE:"1-10-14",SALARY:3000,CITY:"New York"},
+                        {EID:3,ENAME:"Roy",GENDER:"Male",JOININGDATE:"1-6-16",SALARY:3500,CITY:"London"},
+                        {EID:4,ENAME:"Tom",GENDER:"Male",SALARY:4500,CITY:"London"},
+                        {EID:5,ENAME:"Jerry",GENDER:"Male",JOININGDATE:"1-2-13",SALARY:2800,CITY:"Sydney"},
+                        {EID:6,ENAME:"Philip",GENDER:"Male",JOININGDATE:"1-1-15",SALARY:7000,CITY:"New York"},
+                        {EID:7,ENAME:"Sara",GENDER:"Female",JOININGDATE:"1-8-17",SALARY:4800,CITY:"Sydney"},
+                        {EID:8,ENAME:"Emily",GENDER:"Female",JOININGDATE:"1-1-15",SALARY:5500,CITY:"New York"},
+                        {EID:9,ENAME:"Michael",GENDER:"Male",SALARY:6500,CITY:"London"},
+                        {EID:10,ENAME:"John",GENDER:"Male",JOININGDATE:"1-1-15",SALARY:8800,CITY:"London"}])
+
+		-- Part-A --
+1. Display employees whose gender is Male.
+-> db.employee.find({GENDER:"Male"},{})
+
+2. Display employees who belong to London city.
+-> db.employee.find({CITY:"London"},{})
+
+3. Display employees whose salary is greater than 3500.
+-> db.employee.find({SALARY:{$gt:3500}},{})
+
+4. Display employees whose joining date is before 2015-01-01.
+-> db.employee.find({JOININGDATE:{$lt:"1-1-15"}},{})
+
+5. Display employees whose EID is greater than or equal to 7.
+-> db.employee.find({EID:{$gte:7}},{})
+
+6. Display employees whose city is Landon or New York (use:IN)
+-> db.employee.find({CITY:{$in:["London","New York"]}},{})
+
+7. Display employees who do not belongs to Landon or New York (use: NOT IN)
+-> db.employee.find({CITY:{$nin:["London","New York"]}},{})
+
+8. Display the EID of those employee who lives in city London.
+-> db.employee.find({CITY:"London"},{EID:1})
+
+9. Display first 2 employee names who lives in New york.
+-> db.employee.find({CITY:"New York"},{}).limit(2)
+
+10. Display next 2 employee after skipping first 2 whose city is London.
+-> db.employee.find({CITY:"London"},{}).skip(2).limit(2)
+
+11. Display Male employees who lives Sydney.
+-> db.employee.find({CITY:"Sydney",GENDER:"Male"},{})
+
+12. Display EID, ENAME, CITY and SALARY of those employees who belongs to London or Sydney.
+-> db.employee.find({CITY:{$in:["London","Sydney"]}},{EID:1,ENAME:1,CITY:1,SALARY:1})
+
+13. Display ENAME, SALARY, and CITY of those employee whose salary is more than 7000.
+-> db.employee.find({SALARY:{$gt:7000}},{ENAME:1,SALARY:1,CITY:1})
+
+14. Display documents whose name start with E.
+-> db.employee.find({ENAME:/^E/})
+
+15. Display documents whose name starts with S or M in your collection.
+-> db.employee.find({ENAME:{$in:[/^S/,/^M/]}},{})
+
+16. Display documents where city starts with A to M in your collection.
+-> db.employee.find({CITY:{$in:[/^A/,/^M/]}},{})
+
+17. Display documents where city name ends in ‘ney’.
+-> db.employee.find({CITY:/ney$/},{})
+
+19. Display employee info whose name starts with E and having 5 characters.
+-> db.employee.find({ENAME:/^E.{4}$/},{})
+
+20. Display employee whose name start with S and ends in a.
+-> db.employee.find({ENAME:/^S.*a$/},{})
+
+21. Display EID, ENAME, CITY and SALARY whose name starts with ‘Phi’.
+-> db.employee.find({ENAME:/^Phi/},{EID:1,ENAME:1,CITY:1,SALARY:1})
+
+22. Display ENAME, JOININGDATE and CITY whose city contains ‘dne’ as three letters in city name.
+-> db.employee.find({CITY:/dne/i},{ENAME:1,JOININGDATE:1,CITY:1})
+
+23. Display ENAME, JOININGDATE and CITY who does not belongs to city London or Sydney.
+-> db.employee.find({CITY:{$nin:["London","Sydney"]}},{ENAME:1,JOININGDATE:1,CITY:1})
+
+24. Delete the documents whose city is New York.
+-> db.employee.deleteMany({CITY:"New York"})
+
+25. Update ENAME of Nick to ‘Naysa’ and GENDER to ‘Female’.
+-> db.employee.updateOne({ENAME:"Nick"},{$set:{ENAME:"Nayasa",GENDER:"Female"}})
+
+		-- Part-B --
+1. Create Document student in the Database.
+-> Insert record in the document.
+db.student.insertMany([{ROLLNO:101,SNAME:"Vina",DEPARTMENT:"CE",FEES:15000,SEM:3,GENDER:"Male",CITY:"Rajkot"},
+                       {ROLLNO:102,SNAME:"Krisha",DEPARTMENT:"EC",FEES:8000,SEM:5,GENDER:"Female",CITY:"Ahemdabad"},
+                       {ROLLNO:103,SNAME:"Priti",DEPARTMENT:"Civil",FEES:12000,SEM:7,GENDER:"Female",CITY:"Baroda"},
+                       {ROLLNO:104,SNAME:"Mitul",DEPARTMENT:"CE",FEES:15000,SEM:3,GENDER:"Male",CITY:"RAjkot"},
+                       {ROLLNO:105,SNAME:"Keshav",DEPARTMENT:"CE",FEES:15000,SEM:3,GENDER:"Male",CITY:"Jamnagar"},
+                       {ROLLNO:106,SNAME:"Zarna",DEPARTMENT:"Civil",FEES:12000,SEM:5,GENDER:"Female",CITY:"Ahemdabad"},
+                       {ROLLNO:107,SNAME:"Nima",DEPARTMENT:"EE",FEES:9000,SEM:5,GENDER:"Female",CITY:"Rajkot"},
+                       {ROLLNO:108,SNAME:"Dhruv",DEPARTMENT:"Mechanical",FEES:10000,SEM:5,GENDER:"Male",CITY:"Rajkot"},
+                       {ROLLNO:109,SNAME:"Krish",DEPARTMENT:"Mechanical",FEES:10000,SEM:7,GENDER:"Male",CITY:"Baroda"},
+                       {ROLLNO:110,SNAME:"Zeel",DEPARTMENT:"EE",FEES:9000,SEM:3,GENDER:"Female",CITY:"Jamnager"}])
+
+1. Display Female students.
+-> db.student.find({GENDER:"Female"})
+
+2. Display students who belong to Rajkot city.
+-> db.student.find({CITY:"Rajkot"})
+
+3. Display students studying in 7th sem.
+-> db.student.find({SEM:7})
+
+4. Display students not studying in 3rd sem.
+-> db.student.find({SEM:{$nin:[3]}})
+
+5. Display students whose roll no is greater than 107.
+-> db.student.find({ROLLNO:{$gt:107}})
+
+6. Display students whose city is Jamnagar or Baroda (use:IN)
+-> db.student.find({CITY:{$in:["Jamnagar","Baroda"]}})
+
+7. Display students whose fees is less than 9000.
+-> db.student.find({FEES:{$lt:9000}})
+
+8. Display the roll no of those students who belongs to Mechanical department.
+-> db.student.find({DEPARTMENT:"Mechanical"},{ROLLNO:1})
+
+9. Display first 2 students names who lives in Baroda.
+-> db.student.find({CITY:"Baroda"},{SNAME:1}).limit(2)
+
+10. Display Male students who studying in 3rd sem.
+-> db.student.find({GENDER:"Male",SEM:3})
+
+11. Display sname and city and fees of those students whose roll no is less than 105.
+-> db.student.find({ROLLNO:{$lt:105}},{SNAME:1,CITY:1,FEES:1})
+
+12. Display documents where sname start with K.
+-> db.student.find({SNAME:/^K/})
+
+13. Display documents where sname starts with Z or D in your collection.
+-> db.student.find({SNAME:{$in:[/^Z/,/^D/]}})
+
+14. Display documents where city starts with A to R in your collection.
+-> db.student.find({CITY:/^[A-R]/})
+
+15. Display students’ info whose name start with P and ends in i.
+-> db.student.find({SNAME:/^P.*i$/})
+
+16. Display students’ info whose department name starts with ‘C’.
+-> db.student.find({DEPARTMENT:/^C/})
+
+17. Display name, sem, fees, and department whose city contains ‘med’ as three letters somewhere in city name.
+-> db.student.find({CITY:/med/i},{SNAME:1,SEM:1,FEES:1,DEPARTMENT:1})
+
+18. Display name, sem, fees, and department who does not belongs to city Rajkot or Baroda.
+-> db.student.find({CITY:{$nin:["Rajkot","Baroda"]}},{SNAME:1,SEM:1,FEES:1,DEPARTMENT:1})
+
+19. Delete the documents whose city is Jamnagar.
+-> db.student.deleteMany({CITY:"Jamnager"})
+
+20. Update sname of Krish to ‘fenny’ and gender to ‘Female’.
+-> db.student.updateOne({SNAME:"Krish"},{$set:{SNAME:"fenny",GENDER:"Female"}})
+
+		-- Part-C --
+1. Display next 2 students after skipping first 2 whose city is Ahmedabad.
+-> db.student.find({CITY:"Ahemdabad"}).skip(2).limit(2)
+
+2. Display rollno, sname, fees, and department of those students who is from Baroda and belongs to CE department.
+-> db.student.find({CITY:"Baroda",DEPARTMENT:"CE"},{ROLLNO:1,SNAME:1,FEES:1,DEPARTMENT:1})
+
+3. Display documents where city name ends in ‘oda’.
+-> db.student.find({CITY:/oda$/})
+
+4. Display students’ info whose name contains v. (Both uppercase(V) and lowercase(v))
+-> db.student.find({SNAME:/v/i})
+
+5. Display students’ info whose name starts with V and having 4 characters.
+-> db.student.find({SNAME:/^V.{3}$/})
+
+

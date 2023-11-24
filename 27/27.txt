@@ -1,0 +1,73 @@
+	-- Part-A (Use employee collection of Lab-25) --
+1. Display distinct city.
+-> db.employee.distinct("CITY")
+
+2. Display city wise number of persons.
+-> db.employee.aggregate([{$group:{_id:"$CITY",numberOfPersons:{$sum:1}}}])
+
+3. Display sum of salary in your collection.
+db.employee.aggregate([{$group:{_id:null,TotalSalary:{$sum:"$SALARY"}}}])
+
+4. Display average of salary in your document.
+-> db.employee.aggregate([{$group:{_id:null,TotalSalary:{$avg:"$SALARY"}}}])
+
+5. Display maximum and minimum salary of your document.
+-> db.employee.aggregate([{$group:{_id:null,TotalSalary:{$min:"$SALARY"}}}]) // For Minimum Salary
+-> db.employee.aggregate([{$group:{_id:null,TotalSalary:{$max:"$SALARY"}}}]) // For Maximum Salary
+
+6. Display city wise total salary in your collection.
+-> db.employee.aggregate([{$group:{_id:"$CITY",TotalSalary:{$sum:"$SALARY"}}}])
+
+7. Display gender wise maximum salary in your collection.
+-> db.employee.aggregate([{$group:{_id:"$GENDER",TotalSalary:{$max:"$SALARY"}}}])
+
+8. Display city wise maximum and minimum salary.
+-> db.employee.aggregate([{$group:{_id:"$CITY",TotalSalary:{$max:"$SALARY"}}}]) // For City Wise Maximum Salary
+-> db.employee.aggregate([{$group:{_id:"$CITY",TotalSalary:{$min:"$SALARY"}}}]) // For City Wise Minimum Salary
+
+9. Display count of persons lives in Sydney city in your collection.
+-> db.employee.countDocuments({CITY:"Sydney"})
+
+10. Display average salary of New York city.
+-> db.employee.aggregate([{$match:{CITY:"New York"}},{$group:{_id:null,AverageSalary:{$avg:"$SALARY"}}}])
+
+	-- Part-B (Use student collection of Lab-25) --
+1. Display distinct department.
+-> db.student.distinct("DEPARTMENT")
+
+2. Display city wise number of students.
+-> db.student.aggregate([{$group:{_id:"$CITY",TotalStudent:{$count: {}}}}]) // Count Can be blank
+
+3. Display sum of fees in your collection.
+-> db.student.aggregate([{$group:{_id:null,TotalFees:{$sum:"$FEES"}}}])
+
+4. Display average of fees in your document.
+-> db.student.aggregate([{$group:{_id:null,AverageFees:{$avg:"$FEES"}}}])
+
+5. Display maximum and minimum fees of your document.
+-> db.employee.aggregate([{$group:{_id:null,MaximumFees:{$min:"$FEES"}}}]) // For Minimum Fees
+-> db.employee.aggregate([{$group:{_id:null,MinimumFees:{$max:"$FEES"}}}]) // For Maximum Fees
+
+
+	-- Part-C (Use student collection of Lab-25) --
+1. Display department wise total fees in your collection.
+-> db.student.aggregate([{$group:{_id:"$DEPARTMENT",TotalStudent:{$sum:"$FEES"}}}])
+
+2. Display gender wise maximum fees in your collection.
+-> db.student.aggregate([{$group:{_id:"$GENDER",TotalStudent:{$max:"$FEES"}}}])
+
+3. Display department maximum and minimum fees.
+-> db.student.aggregate([{$group:{_id:"$DEPARTMENT",TotalStudent:{$max:"$FEES"}}}]) // For Maximum Fees Department Wise
+-> db.student.aggregate([{$group:{_id:"$DEPARTMENT",TotalStudent:{$min:"$FEES"}}}]) // For Minimum Fees Department Wise
+
+4. Display count of persons lives in Rajkot city in your collection.
+-> db.student.countDocuments({CITY:"Rajkot"})
+
+5. Display department wise number of students.
+-> db.student.aggregate([{$group:{_id:"$DEPARTMENT",TotalStudent:{$count:{}}}}])
+
+
+
+
+
+
